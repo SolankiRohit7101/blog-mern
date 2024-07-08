@@ -145,7 +145,7 @@ const EditBlog = () => {
                 !isLoading && "cursor-not-allowed "
               }  bg-green-600 text-white rounded hover:shadow-md  py-2  hover:opacity-90 `}
               type="primary"
-              disabled={!isLoading ? true : false}
+              disabled={isLoading ? true : false}
               onClick={handleSubmit}
             >
               {isLoading ? (
