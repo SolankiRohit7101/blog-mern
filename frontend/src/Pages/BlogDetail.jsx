@@ -95,7 +95,7 @@ const BlogDetail = () => {
           <p className="  text-pretty break-words  ">{blog.description}</p>
         </div>
       </div>
-      <div className="w-full  border-t-8 py-4 border-zinc-200 border flex justify-center items-center gap-2 md:gap-8 text-xl md:text-4xl">
+      <div className="w-full  border-t-8 py-4 border-zinc-200 border break-words flex justify-center items-center gap-2 md:gap-8 text-xl md:text-4xl">
         &copy;Copyright by
         <h1>{blog?.authorDetails?.email}</h1>
       </div>
