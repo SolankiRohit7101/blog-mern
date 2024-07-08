@@ -42,9 +42,7 @@ const LoginPage = () => {
       });
       setLoading(false);
     } catch (error) {
-      dispatch(setLoading());
       setLoading(false);
-
       dispatch(setError({ ...error }));
       toast.error(error.message, {
         position: "top-center",
