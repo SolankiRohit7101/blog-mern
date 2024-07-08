@@ -34,7 +34,7 @@ const AddBlog = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setIsLoading(true);
     dispatch(setLoading());
     try {
       let file = thumbnailImage;

@@ -11,14 +11,15 @@ const BlogDetail = () => {
   const [blog, setBlog] = useState({});
   const { user } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
+  const [numOfLike, setNumOfLike] = useState(0);
   const handleLike = async () => {
     if (user.email !== "") {
       setLoading(true);
       await fetcher(`/api/blog/like/${blog._id}`, { method: "put" }).then(
         (data) => {
           setUserLiked(!userLiked);
-          console.log(data);
           setLoading(false);
+          setNumOfLike(data.likes.numOfLike);
         }
       );
     } else {
@@ -79,7 +80,7 @@ const BlogDetail = () => {
           cursor-pointer
           `}
             >
-              {blog?.likes?.numOfLike}
+              {numOfLike}
               <span>Liked</span>
             </p>
           </div>
