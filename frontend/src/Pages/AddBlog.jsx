@@ -140,12 +140,16 @@ const AddBlog = () => {
             <button
               className={`w-full ${
                 !isLoading && "cursor-not-allowed "
-              }  bg-blue-600 text-white rounded hover:shadow-md  py-2  hover:opacity-90 `}
+              }  bg-blue-600 text-white rounded hover:shadow-md  py-2 mx-auto   hover:opacity-90 `}
               type="primary"
               disabled={!isLoading ? true : false}
               onClick={handleSubmit}
             >
-              Upload
+              {isLoading ? (
+                <div className="border-gray-300 h-5 w-5 animate-spin mx-auto rounded-full border-2 border-t-blue-600" />
+              ) : (
+                <>Upload</>
+              )}
             </button>
             <button
               className="w-full ring-inset ring-2 ring-red-700 hover:ring-0 transition-all  py-2 text-red-700 hover:text-white hover:bg-red-700 capitalize   "

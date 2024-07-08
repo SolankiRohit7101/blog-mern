@@ -13,7 +13,7 @@ const EditBlog = () => {
   const [thumbnailLocalUrl, setThumbnailLocalUrl] = useState("");
   const [thumbnailImage, setThumbnailImage] = useState(null);
   const dispatch = useDispatch();
-  const isLoading = useSelector((state) => state.blog.blog);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [blog, setBlogData] = useState({ ...state });
 
@@ -32,6 +32,7 @@ const EditBlog = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     dispatch(setLoading());
     try {
       let file = thumbnailImage;
@@ -70,7 +71,9 @@ const EditBlog = () => {
       });
       dispatch(setLoading());
       navigate("/profile/myblogs");
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       dispatch(setLoading());
       dispatch(setError(error));
       toast.error(error.message, {
@@ -145,7 +148,11 @@ const EditBlog = () => {
               disabled={!isLoading ? true : false}
               onClick={handleSubmit}
             >
-              Save
+              {isLoading ? (
+                <div className="border-gray-300 h-5 w-5 animate-spin mx-auto rounded-full border-2 border-t-blue-600" />
+              ) : (
+                <>Save</>
+              )}
             </button>
             <button
               className="w-full  hover:ring-0 transition-all  py-2 text-black/70 bg-white/70 shadow-md border hover:text-white hover:bg-red-700 capitalize   "
