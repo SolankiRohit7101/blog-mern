@@ -14,8 +14,8 @@ import { Types } from "mongoose";
 export const registerUser = async (req, res, next) => {
   try {
     let isValidData = registerSchema.parse(req.body);
-    let { name, password, email, profile_image, bio } = isValidData;
-
+    let { name, password, email } = isValidData;
+    let { profile_image, bio } = req.body;
     if (!profile_image) {
       profile_image =
         "https://res.cloudinary.com/dyxijouqy/image/upload/f_auto,q_auto/v1/blog_profile/dfanyr2nh3h4pwbkecmp";
