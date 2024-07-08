@@ -11,7 +11,7 @@ const AddBlog = () => {
   const [thumbnailLocalUrl, setThumbnailLocalUrl] = useState("");
   const [thumbnailImage, setThumbnailImage] = useState(null);
   const dispatch = useDispatch();
-  const isLoading = useSelector((state) => state.blog.blog);
+  const isLoading = useSelector((state) => state.user.user);
   const navigate = useNavigate();
   const [blogData, setBlogData] = useState({
     title: "",

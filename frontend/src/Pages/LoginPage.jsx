@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import { setError, setUser } from "../Redux/user/userSlice";
 import fetcher from "../utils/fetcher";
 import { useDispatch, useSelector } from "react-redux";
-
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
