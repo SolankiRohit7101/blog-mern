@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import Avatar from "../components/Avatar";
+import { useEffect, useState, lazy } from "react";
+const Avatar = lazy(() => import("../components/Avatar"));
 import { useParams } from "react-router-dom";
 import fetcher from "../utils/fetcher";
 import { HeartIcon } from "lucide-react";
@@ -35,7 +35,6 @@ const BlogDetail = () => {
       });
     }
   };
-
   useEffect(() => {
     (async () => {
       try {
