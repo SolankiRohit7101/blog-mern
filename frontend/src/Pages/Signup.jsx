@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import defaultUserImg from "../assets/defaultUser.png";
 import fetcher from "../utils/fetcher";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { setError, setLoading, setUser } from "../Redux/user/userSlice";
+import { useDispatch } from "react-redux";
+import { setError, setUser } from "../Redux/user/userSlice";
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [profileImage, setProfileImage] = useState("");
@@ -14,7 +14,7 @@ const Signup = () => {
   const imageRef = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isLoading = useSelector((state) => state.user.loading);
+  const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -35,7 +35,7 @@ const Signup = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(setLoading());
+    setIsLoading(true);
     try {
       let file = profileImage;
       let updatedUserData = { ...userData };
@@ -57,13 +57,10 @@ const Signup = () => {
             updatedUserData.profile_image = res.url;
           });
       }
-
-      console.log(updatedUserData);
       await fetcher("/api/user/register", {
         method: "POST",
         data: { ...updatedUserData },
       }).then((data) => {
-        console.log(data);
         dispatch(setUser(data.decode));
         toast.success(data.message, {
           position: "top-center",
@@ -75,12 +72,12 @@ const Signup = () => {
           progress: undefined,
           theme: "light",
         });
-        dispatch(setLoading());
+        setIsLoading(false);
         navigate("/");
       });
     } catch (error) {
-      dispatch(setLoading());
       dispatch(setError(error));
+      setIsLoading(false);
       toast.error(error.message, {
         position: "top-center",
         autoClose: 2500,
@@ -173,7 +170,11 @@ const Signup = () => {
                 <Button onClick={() => navigate("/login")}> Login</Button>
                 <button type="submit">
                   <Button type="primary" disabled={isLoading ? true : false}>
-                    Sign Up
+                    {isLoading ? (
+                      <div className="border-gray-300 h-5 w-5 animate-spin rounded-full border-2 border-t-blue-600" />
+                    ) : (
+                      "Sign Up"
+                    )}
                   </Button>
                 </button>
               </div>
