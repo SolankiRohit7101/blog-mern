@@ -3,7 +3,7 @@ import { Mail, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { setError, setLoading, setUser } from "../Redux/user/userSlice";
+import { setError, setUser } from "../Redux/user/userSlice";
 import fetcher from "../utils/fetcher";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -11,6 +11,7 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isLoading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -21,7 +22,7 @@ const LoginPage = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(setLoading());
+    setLoading(true);
     try {
       await fetcher("/api/user/login", {
         method: "post",
@@ -39,9 +40,11 @@ const LoginPage = () => {
           theme: "light",
         });
       });
-      dispatch(setLoading());
+      setLoading(false);
     } catch (error) {
       dispatch(setLoading());
+      setLoading(false);
+
       dispatch(setError({ ...error }));
       toast.error(error.message, {
         position: "top-center",
@@ -112,7 +115,11 @@ const LoginPage = () => {
                   <div className="flex gap-5">
                     <Button onClick={() => navigate("/signup")}>Sign Up</Button>
                     <Button type="primary" htmlType="submit">
-                      Login
+                      {isLoading ? (
+                        <div className="border-gray-300 h-5 w-5 animate-spin rounded-full border-2 border-t-blue-600" />
+                      ) : (
+                        "Login"
+                      )}
                     </Button>
                   </div>
                 </div>
