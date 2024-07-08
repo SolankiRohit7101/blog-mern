@@ -12,6 +12,7 @@ const AddBlog = () => {
   const [thumbnailImage, setThumbnailImage] = useState(null);
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.user.user);
+  const [loading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [blogData, setBlogData] = useState({
     title: "",
@@ -33,6 +34,7 @@ const AddBlog = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     dispatch(setLoading());
     try {
       let file = thumbnailImage;
@@ -71,8 +73,10 @@ const AddBlog = () => {
         });
       });
       dispatch(setLoading());
+      setIsLoading(false);
       navigate("/");
     } catch (error) {
+      setIsLoading(false);
       dispatch(setLoading());
       dispatch(setError(error));
       toast.error(error.message, {
@@ -142,10 +146,10 @@ const AddBlog = () => {
                 !isLoading && "cursor-not-allowed "
               }  bg-blue-600 text-white rounded hover:shadow-md  py-2 mx-auto   hover:opacity-90 `}
               type="primary"
-              disabled={!isLoading ? true : false}
+              disabled={loading ? true : false}
               onClick={handleSubmit}
             >
-              {isLoading ? (
+              {loading ? (
                 <div className="border-gray-300 h-5 w-5 animate-spin mx-auto rounded-full border-2 border-t-blue-600" />
               ) : (
                 <>Upload</>
