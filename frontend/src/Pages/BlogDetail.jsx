@@ -54,7 +54,7 @@ const BlogDetail = () => {
   return (
     <>
       <div className=" w-full md:w-3/5 mx-auto md:py-20 py-10   px-10 md:px-20 flex flex-col  gap-5  bg-white   ">
-        <div className="  px-5  md:px-14  border-b ">
+        <div className="px-5  md:px-14  border-b ">
           <Avatar author={blog.authorDetails} border={false} />
         </div>
         <div className=" flex justify-between items-start   gap-5  ">

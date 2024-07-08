@@ -1,7 +1,7 @@
 import { EditOutlined } from "@ant-design/icons";
 import { PlusIcon } from "lucide-react";
 import { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { setLoading, setError } from "../Redux/user/userSlice";

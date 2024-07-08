@@ -57,6 +57,7 @@ const Signup = () => {
             updatedUserData.profile_image = res.url;
           });
       }
+      console.log(updatedUserData.profile_image)
       await fetcher("/api/user/register", {
         method: "POST",
         data: { ...updatedUserData },
