@@ -79,6 +79,9 @@ const AddBlog = () => {
       setIsLoading(false);
       dispatch(setLoading());
       dispatch(setError(error));
+      if (error.message === "Sesison Expire , Please Login Again.") {
+        localStorage.removeItem("userDetail");
+      }
       toast.error(error.message, {
         position: "top-center",
         autoClose: 2500,

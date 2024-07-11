@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import store from "./store";
 const NotFound = lazy(() => import("./Pages/NotFound"));
 const BlogLiked = lazy(() => import("./components/BlogLiked"));
@@ -18,9 +18,22 @@ const LoginPage = lazy(() => import("./Pages/LoginPage"));
 const Spinner = lazy(() => import("./components/Spinner"));
 const BlogDetail = lazy(() => import("./Pages/BlogDetail"));
 const EditBlog = lazy(() => import("./components/EditBlog"));
+import { useCookies, CookiesProvider } from "react-cookie";
 function App() {
+  const [myCookies, setMyCookies] = useCookies(["accessToken"]);
+  useEffect(() => {
+    console.log(myCookies);
+    //setMyCookies("userDtail", "", { path: "/" });
+    console.log("second  ", myCookies);
+
+    if (!myCookies) {
+      localStorage.removeItem("userDetail", myCookies);
+      console.log("first ");
+    }
+  }, []);
+
   return (
-    <>
+    <CookiesProvider>
       <Suspense fallback={<Spinner />}>
         <main className="w-full min-h-screen  bg-[#f2f3f4] text-black/40   ">
           <Provider store={store}>
@@ -67,7 +80,7 @@ function App() {
           </Provider>
         </main>
       </Suspense>
-    </>
+    </CookiesProvider>
   );
 }
 
